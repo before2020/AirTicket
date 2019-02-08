@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<script type="text/javascript" src="js/vue.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--<script type="text/javascript" src="js/axios.js"></script>-->
+</head>
+<body>
+订票系统
+<div id="flightList">
+    <table>
+        <tr v-for="item in list">
+            <td>{{item.srcCity}}</td>
+            <td>{{item.srcAirport}}</td>
+            <td>{{item.desCity}}</td>
+            <td>{{item.desAirport}}</td>
+            <td>{{item.depTime}}</td>
+            <td>{{item.arrTime}}</td>
+            <td>{{item.totalTicket}}</td>
+            <td>{{item.leftTicket}}</td>
+            <td>{{item.ecoPrice}}</td>
+            <td>{{item.busiPrice}}</td>
+        </tr>
+    </table>
+</div>
+<script>
+    var app3 = new Vue({
+        el: '#app-3',
+        data: {
+            seen: true
+        }
+    })
+    var flightList = new Vue({
+        el: '#flightList',
+        data: {
+            list: []
+        },
+        created: function () {
+            console.log("create---");
+            axios.get('/flight')
+                .then(function(response) {
+                    this.list = response.data;
+                }.bind(this));
+        }
+    })
+</script>
+</body>
+
+</html>
